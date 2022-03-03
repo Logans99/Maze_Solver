@@ -57,7 +57,7 @@ void FindTargetCell(std::vector<std::vector<Cell>> &grid) {
                     grid.at(i).at(j).setTargetCell(true);
                 }
             }
-            if (j == 0 || j == grid.at(0).size() - 1) {       // left boarder or right boarder?///
+            if (j == 0 || j == grid.at(0).size() - 1) {       // left boarder or right boarder
                 if(grid.at(i).at(j).path()) {
                     grid.at(i).at(j).setTargetCell(true);
                 }
@@ -88,21 +88,21 @@ bool AdjacentCell(Cell currentCell, std::vector<std::vector<Cell>> &grid) {
     }
 
     if(currentCell.row() < grid.size() - 1) {
-        if (grid.at(currentCell.row() + 1).at(currentCell.column()).path()) {   // Above?
+        if (grid.at(currentCell.row() + 1).at(currentCell.column()).path()) {   // Above
             if (!grid.at(currentCell.row() + 1).at(currentCell.column()).isRead())
                 return true;
         }
     }
 
     if(currentCell.column() > 0) {
-        if (grid.at(currentCell.row()).at(currentCell.column() - 1).path()) {   // Left?
+        if (grid.at(currentCell.row()).at(currentCell.column() - 1).path()) {   // Left side
             if (!grid.at(currentCell.row()).at(currentCell.column() - 1).isRead())
                 return true;
         }
     }
 
     if(currentCell.column() < grid.at(0).size() - 1) {
-        if (grid.at(currentCell.row()).at(currentCell.column() + 1).path()) {   // Right?
+        if (grid.at(currentCell.row()).at(currentCell.column() + 1).path()) {   // Right side
             if (!grid.at(currentCell.row()).at(currentCell.column() + 1).isRead())
                 return true;
         }
@@ -113,7 +113,7 @@ bool AdjacentCell(Cell currentCell, std::vector<std::vector<Cell>> &grid) {
 Cell RecallCell(Cell currentCell, std::vector<std::vector<Cell>> &grid) {
 
     if (currentCell.row() > 0) {
-        if (grid.at(currentCell.row() - 1).at(currentCell.column()).path()) {   // Below
+        if (grid.at(currentCell.row() - 1).at(currentCell.column()).path()) {           // Below
             if (!grid.at(currentCell.row() - 1).at(currentCell.column()).isRead()) {
                 grid.at(currentCell.row() - 1).at(currentCell.column()).setIsRead(true);
                 return (grid.at(currentCell.row() - 1).at(currentCell.column()));
@@ -122,7 +122,7 @@ Cell RecallCell(Cell currentCell, std::vector<std::vector<Cell>> &grid) {
     }
 
     if (currentCell.row() < grid.size() - 1) {
-        if (grid.at(currentCell.row() + 1).at(currentCell.column()).path()) {   // Above?
+        if (grid.at(currentCell.row() + 1).at(currentCell.column()).path()) {           // Above
             if (!grid.at(currentCell.row() + 1).at(currentCell.column()).isRead()) {
                 grid.at(currentCell.row() + 1).at(currentCell.column()).setIsRead(true);
                 return (grid.at(currentCell.row() + 1).at(currentCell.column()));
@@ -131,7 +131,7 @@ Cell RecallCell(Cell currentCell, std::vector<std::vector<Cell>> &grid) {
     }
 
     if (currentCell.column() > 0) {
-        if (grid.at(currentCell.row()).at(currentCell.column() - 1).path()) {   // Left?
+        if (grid.at(currentCell.row()).at(currentCell.column() - 1).path()) {           // Left side
             if (!grid.at(currentCell.row()).at(currentCell.column() - 1).isRead()) {
                 grid.at(currentCell.row()).at(currentCell.column() - 1).setIsRead(true);
                 return (grid.at(currentCell.row()).at(currentCell.column() - 1));
@@ -139,7 +139,7 @@ Cell RecallCell(Cell currentCell, std::vector<std::vector<Cell>> &grid) {
         }
     }
     if (currentCell.column() < grid.at(0).size() - 1) {
-        if (grid.at(currentCell.row()).at(currentCell.column() + 1).path()) {   // Right?
+        if (grid.at(currentCell.row()).at(currentCell.column() + 1).path()) {           // Right side
             if (!grid.at(currentCell.row()).at(currentCell.column() + 1).isRead()) {
                 grid.at(currentCell.row()).at(currentCell.column() + 1).setIsRead(true);
                 return (grid.at(currentCell.row()).at(currentCell.column() + 1));
@@ -161,8 +161,8 @@ std::stack<Cell> BackTracking(std::vector<std::vector<Cell>> &grid) {
         else {
             Cell collect = RecallCell(myStack.top(), grid);
 
-            //collect.setIsRead(true);                    // already has been explored
-            myStack.push(collect);                      // pushing cell collect on the stack
+            //collect.setIsRead(true);                                  // already explored
+            myStack.push(collect);                                      // pushing cell collect on the stack
 
             if(collect.targetCell()) {
                 break;
@@ -194,7 +194,7 @@ int main(int argc, char *argv[]) {
         std::cout << "This app expects a single arg to be used as an input file\n";
         exit(1);
     }
-    std::vector<std::vector<Cell>> grid;            // 2D vector of cells
+    std::vector<std::vector<Cell>> grid;                                // 2D vector of cells
     Reader(argc, argv, grid);
     FindTargetCell(grid);
     std::stack<Cell> myStack;
